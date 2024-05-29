@@ -1,72 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Protected Modal</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        #modal {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        #modal input {
-            padding: 10px;
-            margin-top: 10px;
-        }
-        #modal button {
-            padding: 10px 20px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
 
-<div id="overlay">
-    <div id="modal">
-        <h2>Enter Password</h2>
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="checkPassword()">Submit</button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <div id="ingresar" class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Verificación de usuario</h5>
+        </div>
+        <div class="modal-body">
+          <p>Debe ser un usuario autorizado para acceder a esta sección</p>
+          <form>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Clave de acceso</label>
+              <input type="password" class="form-control" id="claveAcceso" placeholder="Clave">
+              <small id="emailHelp" class="form-text text-muted">Clave de acceso proporcionada por Pypra Sheet Metal
+                Solutions</small>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button onclick="verify()" type="button" class="btn btn-primary">Ingresar</button>
+          <a href="https://www.pypraofficialsite.com/"><button type="button" class="btn btn-secondary"
+              data-dismiss="modal">Regresar</button></a>
+          <hr>
+          <small class="form-text text-muted">Aún no es un cliente registrado? <a href="">Click aquí</a></small>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<div id="content" style="display:none;">
-    <h1>Welcome to My Website</h1>
-    <p>This is the content behind the modal.</p>
-</div>
+  <script>
+    $(document).ready(function() {
+      $('#ingresar').modal('show');
+    });
 
-<script>
-    function checkPassword() {
-        const password = document.getElementById('password').value;
-        if (password === 'abracadabra') {
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('content').style.display = 'block';
-        } else {
-            alert('Incorrect password. Please try again.');
-        }
+    function verify() {
+      const passwordField = document.getElementById('claveAcceso');
+      const emailHelp = document.getElementById('emailHelp');
+      const modal = document.getElementById('ingresar');
+      const password = passwordField.value;
+
+      if (password === 'pypra') {
+        $(modal).modal('hide');
+      } else {
+        emailHelp.textContent = 'Clave de acceso incorrecta';
+        emailHelp.style.color = 'red';
+      }
     }
-
-    window.onload = function() {
-        document.getElementById('overlay').style.display = 'flex';
-    }
-</script>
-
-</body>
-</html>
+  </script>
